@@ -31,6 +31,7 @@ public class ChatWindow {
 	private PrintWriter pw;
 	private BufferedReader br;
 	private boolean exit;
+	private String myName;
 
 	public ChatWindow(String name, Socket socket, PrintWriter pw, BufferedReader br) {
 		frame = new Frame(name);
@@ -39,6 +40,7 @@ public class ChatWindow {
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
 
+		this.myName = name;
 		this.socket = socket;
 		this.pw = pw;
 		this.br = br;
@@ -102,6 +104,7 @@ public class ChatWindow {
 			pw.println("quit:");
 			return;
 		}
+		textArea.append(myName + ":" + message + "\n");
 		pw.println("message:" + message);
 
 		textField.setText("");

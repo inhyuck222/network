@@ -82,6 +82,9 @@ public class ChatServerProcessThread extends Thread {
 			Iterator<PrintWriter> iter = printWriterList.iterator();
 			while (iter.hasNext()) {
 				PrintWriter printWriter = iter.next();
+				if(printWriter.hashCode() == pw.hashCode()) {
+					continue;
+				}
 				printWriter.println(myName + ":" + message);
 			}	
 		}		
