@@ -19,22 +19,22 @@ public class EchoClient {
 
 		try {
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
-			
-			BufferedReader br = new BufferedReader( new InputStreamReader( socket.getInputStream(), "UTF-8" ) );
-			PrintWriter pw = new PrintWriter( new OutputStreamWriter( socket.getOutputStream(), "UTF-8" ), true );
-			
-			while(true) {
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+
+			while (true) {
 				System.out.print(">>");
 				String message = sc.nextLine();
-				
+
 				if (message.equals("exit")) {
 					break;
 				}
-				
+
 				pw.println(message);
-				
+
 				String echoMessage = br.readLine();
-				if(echoMessage == null) {
+				if (echoMessage == null) {
 					System.out.println("[client] disconnected by server");
 					break;
 				}
@@ -48,9 +48,9 @@ public class EchoClient {
 					socket.close();
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			sc.close();
 		}
 	}
