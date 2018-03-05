@@ -50,7 +50,7 @@ public class EchoClient {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			sc.close();
 		}
 	}
