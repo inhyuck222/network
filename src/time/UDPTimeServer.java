@@ -13,26 +13,27 @@ public class UDPTimeServer {
 
 	public static void main(String[] args) {
 		DatagramSocket socket = null;
-		
+
 		try {
 			socket = new DatagramSocket(PORT);
-			
-			while(true) {
+
+			while (true) {
 				DatagramPacket receivePacket = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
-				
+
 				socket.receive(receivePacket);
-				
+
 				String message = new String(receivePacket.getData(), 0, receivePacket.getLength(), "UTF-8");
-				
-				if("".equals(message) == false) {
+
+				if ("".equals(message) == false) {
 					continue;
 				}
-				
-				SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss a" );
-				String data = format.format( new Date() );
-				
+
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+				String data = format.format(new Date());
+
 				byte[] serverTime = data.getBytes("UTF-8");
-				DatagramPacket sendPacket = new DatagramPacket(serverTime, serverTime.length, receivePacket.getAddress(), receivePacket.getPort());
+				DatagramPacket sendPacket = new DatagramPacket(serverTime, serverTime.length,
+						receivePacket.getAddress(), receivePacket.getPort());
 				socket.send(sendPacket);
 			}
 		} catch (SocketException e) {

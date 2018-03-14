@@ -19,34 +19,34 @@ public class UDPTimeClient {
 
 		try {
 			scanner = new Scanner(System.in);
-			
+
 			socket = new DatagramSocket();
-			
-			while(true) {
+
+			while (true) {
 				System.out.print(">>");
 				String message = scanner.nextLine();
-				
+
 				if ("quit".equals(message)) {
 					break;
 				}
-				
-				if("".equals(message) == false) {
+
+				if ("".equals(message) == false) {
 					continue;
 				}
-				
+
 				byte[] sendData = message.getBytes("UTF-8");
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, new InetSocketAddress(SERVER_IP, SERVER_PORT));
-				
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length,
+						new InetSocketAddress(SERVER_IP, SERVER_PORT));
+
 				socket.send(sendPacket);
 				socket.setSoTimeout(1000);
-				
+
 				DatagramPacket receivePacket = new DatagramPacket(new byte[BUFFER_SIZE], BUFFER_SIZE);
 				socket.receive(receivePacket);
-				
+
 				message = new String(receivePacket.getData(), 0, receivePacket.getLength(), "UTF-8");
 				System.out.println("<<" + message);
 			}
-
 		} catch (SocketTimeoutException e) {
 			e.printStackTrace();
 		} catch (SocketException e) {
